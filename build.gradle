@@ -1,0 +1,5 @@
+
+group 'com.jaredjstewart'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'base'
