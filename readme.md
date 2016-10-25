@@ -10,8 +10,9 @@ This is a basic demo that generates random stock prices and stores them in Geode
 # Basic
 
 * continuous_query - This example introduces Continuous Queries by extending the Quickstart demo to add a CQ that triggers whenever a stock price exceeds a certain threshold.
-
+* spring_boot_hello - This project shows a Spring Boot HelloWorld REST application using Geode.
 # Running The Examples
+
 You can run the Quickstart example by executing:
 ```
 $ ./gradlew :quickstart:run

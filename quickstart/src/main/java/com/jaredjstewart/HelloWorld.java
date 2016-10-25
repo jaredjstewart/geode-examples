@@ -36,15 +36,11 @@ public class HelloWorld {
                 .setPoolSubscriptionEnabled(true)
                 .create();
 
-        Region<String, BigDecimal> region = cache
-                .<String, BigDecimal>createClientRegionFactory(ClientRegionShortcut.CACHING_PROXY)
-                .create("regionA");
+        Region<String, String> region = cache
+                .<String, String>createClientRegionFactory(ClientRegionShortcut.CACHING_PROXY)
+                .create("regionA")
+               ;
 
-        ExecutorService executorService = startSimulation(region);
-        blockUntilUserPressesEnter();
-
-
-        shutdownSimulation(executorService, cache);
     }
 
     private static ExecutorService startSimulation(Region<String, BigDecimal> region) {
