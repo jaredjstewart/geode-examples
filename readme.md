@@ -1,4 +1,4 @@
-Apache Gedoe Examples
+Apache Geode Examples
 =====================
 
 This project provides a number of examples to get you started using Apache Geode. These examples are designed to work with [Apache Geode] (http://geode.apache.org/) and are organized into the following sub projects:
