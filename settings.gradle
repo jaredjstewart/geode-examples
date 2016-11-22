@@ -17,5 +17,5 @@
 rootProject.name = 'geode-examples'
 
 include ':quickstart', ':basic:continuous_query', ':basic:spring_boot_hello'
-include ':basic:function_example', ':basic:pdx_autoserialization'
+include ':basic:function_example', ':basic:pdx_autoserialization', ':basic:security_postprocessor'
 
