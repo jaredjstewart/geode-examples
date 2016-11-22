@@ -16,7 +16,8 @@
  */
 package com.jaredjstewart;
 
-import com.gemstone.gemfire.cache.Region;
+
+import org.apache.geode.cache.Region;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;

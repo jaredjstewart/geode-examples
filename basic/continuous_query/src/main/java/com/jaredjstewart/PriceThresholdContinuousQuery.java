@@ -17,9 +17,10 @@
 
 package com.jaredjstewart;
 
-import com.gemstone.gemfire.cache.Operation;
-import com.gemstone.gemfire.cache.query.CqEvent;
-import com.gemstone.gemfire.cache.query.CqListener;
+
+import org.apache.geode.cache.Operation;
+import org.apache.geode.cache.query.CqEvent;
+import org.apache.geode.cache.query.CqListener;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;

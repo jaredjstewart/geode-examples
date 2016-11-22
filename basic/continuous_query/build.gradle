@@ -25,8 +25,8 @@ repositories {
 
 dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '19.0'
-    compile 'org.apache.geode:geode-core:1.0.0-incubating.M3'
-    compile 'org.apache.geode:geode-cq:1.0.0-incubating.M3'
+    compile 'org.apache.geode:geode-core:1.0.0-incubating'
+    compile 'org.apache.geode:geode-cq:1.0.0-incubating'
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 

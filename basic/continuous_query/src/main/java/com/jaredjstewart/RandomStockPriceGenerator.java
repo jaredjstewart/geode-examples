@@ -16,8 +16,9 @@
  */
 package com.jaredjstewart;
 
-import com.gemstone.gemfire.cache.Region;
 import com.google.common.base.Stopwatch;
+
+import org.apache.geode.cache.Region;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
