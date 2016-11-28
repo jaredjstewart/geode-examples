@@ -1,0 +1,33 @@
+{
+  "roles": [
+    {
+      "name": "admin",
+      "operationsAllowed": [
+        "CLUSTER:MANAGE",
+        "CLUSTER:READ",
+        "CLUSTER:WRITE",
+        "DATA:MANAGE",
+        "DATA:READ",
+        "DATA:WRITE"
+      ]
+    },
+    {
+      "name": "read",
+      "operationsAllowed": [
+        "DATA:READ",
+      ]
+    }
+  ],
+  "users": [
+    {
+      "name": "admin",
+      "password": "secret",
+      "roles": ["admin"]
+    },
+    {
+      "name": "guest",
+      "password": "guest",
+      "roles": ["read"]
+    }
+  ]
+}

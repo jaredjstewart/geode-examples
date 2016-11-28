@@ -1,0 +1,1 @@
+run --file=/Users/jstewart/projects/geode-examples/advanced/jar_for_security_examples/setupSecureEnv.gfsh

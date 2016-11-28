@@ -14,9 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-rootProject.name = 'geode-examples'
+apply plugin: 'java'
+apply plugin: 'application'
 
-include ':quickstart', ':basic:continuous_query', ':basic:spring_boot_hello'
-include ':basic:function_example', ':basic:pdx_autoserialization'
-include ':advanced:security_postprocessor', ':advanced:jar_for_security_examples'
 
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'com.google.guava', name: 'guava', version: '19.0'
+    compile 'org.apache.geode:geode-core:1.0.0-incubating'
+    compile 'org.apache.geode:geode-cq:1.0.0-incubating'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+run {
+    standardInput = System.in
+}
