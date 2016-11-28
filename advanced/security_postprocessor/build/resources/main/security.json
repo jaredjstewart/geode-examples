@@ -14,8 +14,15 @@
     {
       "name": "read",
       "operationsAllowed": [
-        "DATA:READ",
+        "DATA:READ"
       ]
+    },
+    {
+      "name": "readRegionA",
+      "operationsAllowed": [
+        "DATA:READ"
+      ],
+      "regions": ["RegionA"]
     }
   ],
   "users": [
@@ -28,6 +35,12 @@
       "name": "guest",
       "password": "guest",
       "roles": ["read"]
+    },
+    {
+      "name": "guest2",
+      "password": "guest2",
+      "roles": ["readRegionA"]
     }
+
   ]
 }

@@ -23,38 +23,50 @@ import org.apache.geode.cache.Region;
 import org.apache.geode.cache.client.ClientCache;
 import org.apache.geode.cache.client.ClientCacheFactory;
 import org.apache.geode.cache.client.ClientRegionShortcut;
+import org.apache.geode.cache.query.FunctionDomainException;
+import org.apache.geode.cache.query.NameResolutionException;
+import org.apache.geode.cache.query.Query;
+import org.apache.geode.cache.query.QueryInvocationTargetException;
 import org.apache.geode.cache.query.QueryService;
+import org.apache.geode.cache.query.TypeMismatchException;
 import org.apache.geode.distributed.ConfigurationProperties;
+import org.apache.geode.internal.security.SecurityService;
 
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
 public class ReadOnlyClient {
 
-    public static void main(String[] args) throws Exception {
-        Properties props = new Properties();
-        props.setProperty("security-username", "guest");
-        props.setProperty("security-password", "guest");
-        props.setProperty(SECURITY_CLIENT_AUTH_INIT, UserPasswordAuthInit.class.getName());
+  public static void main(String[] args) throws Exception {
+    Properties props = new Properties();
+    props.setProperty("security-username", "guest");
+    props.setProperty("security-password", "guest");
+    props.setProperty(SECURITY_CLIENT_AUTH_INIT, UserPasswordAuthInit.class.getName());
 
-        ClientCache cache = new ClientCacheFactory(props)
-                .addPoolLocator("localhost", 10334)
-                .setPoolSubscriptionEnabled(true)
-                .set(ConfigurationProperties.SECURITY_MANAGER, SampleSecurityManager.class.getName())
-                .create();
+    ClientCache cache = new ClientCacheFactory(props)
+        .addPoolLocator("localhost", 10334)
+        .setPoolSubscriptionEnabled(true)
+        .set(ConfigurationProperties.SECURITY_MANAGER, SampleSecurityManager.class.getName())
+        .create();
 
-        Region<String, Customer> region = cache
-                .<String, Customer>createClientRegionFactory(ClientRegionShortcut.PROXY)
-                .create("customers");
+    Region<String, Customer> region = cache
+        .<String, Customer>createClientRegionFactory(ClientRegionShortcut.PROXY)
+        .create("customers");
 
+    QueryService queryService = region.getRegionService().getQueryService();
 
-        QueryService queryService = region.getRegionService().getQueryService();
+    Customer galenFromGet = region.get("galen");
+    System.out.println(galenFromGet);
 
+    Object result = queryService.newQuery("select * from /customers").execute();
+//        Object result = queryService.newQuery("select c from /customers c where c.socialSecurityNumber='123-456-0123'").execute(); //this redacts but still leaks the vital information
 //        Object result = queryService.newQuery("select c.socialSecurityNumber from /customers c").execute();  //epic fail
-        Object result = queryService.newQuery("select c from /customers c where c.socialSecurityNumber='123-456-0123'").execute(); //this redacts but we know who it is
 
-        Customer galenFromDb = region.get("galen");
-        System.out.println(galenFromDb);
 
-    }
+    System.out.println(result);
+
+
+  }
+
 }

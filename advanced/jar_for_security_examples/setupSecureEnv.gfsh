@@ -1,7 +1,9 @@
 start locator --name=loc1 --classpath=/Users/jstewart/projects/geode-examples/advanced/jar_for_security_examples/build/libs/jar_for_security_examples.jar
-connect --locator=pdx2-office-dhcp4.eng.vmware.com[10334] --user=admin --password=secret
+connect --locator=localhost[10334] --user=admin --password=secret
 start server --name=server1 --classpath=/Users/jstewart/projects/geode-examples/advanced/jar_for_security_examples/build/libs/jar_for_security_examples.jar --user=admin --password=secret
 
 create region --name=customers --type=REPLICATE
+create region --name=RegionA --type=REPLICATE
+create region --name=RegionB --type=REPLICATE
 
 
