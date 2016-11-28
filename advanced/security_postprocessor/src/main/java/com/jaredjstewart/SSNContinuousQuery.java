@@ -25,15 +25,13 @@ import org.apache.geode.cache.query.CqListener;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 
-public class PriceThresholdContinuousQuery implements CqListener {
+public class SSNContinuousQuery implements CqListener {
        @Override
     public void onEvent(CqEvent aCqEvent) {
-        if (!aCqEvent.getQueryOperation().equals(Operation.DESTROY)){
-            String tickerSymbol = (String) aCqEvent.getKey();
-            BigDecimal newPrice = (BigDecimal) aCqEvent.getNewValue();
+            String key = (String) aCqEvent.getKey();
+            Customer customer = (Customer) aCqEvent.getNewValue();
             System.out.println("==============");
-            System.out.format ("[%s] just reached a price of %s\n", tickerSymbol, NumberFormat.getCurrencyInstance().format(newPrice));
-        }
+            System.out.println(key + " has an ssn of " + customer.getSocialSecurityNumber());
     }
 
     @Override

@@ -29,20 +29,16 @@ import org.apache.geode.cache.query.CqQuery;
 import org.apache.geode.cache.query.QueryService;
 import org.apache.geode.distributed.ConfigurationProperties;
 
-import java.math.BigDecimal;
 import java.util.Properties;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
-public class WriteValuesClient {
+public class CqClient {
 
     public static void main(String[] args) throws Exception {
         Properties props = new Properties();
-        props.setProperty("security-username", "admin");
-        props.setProperty("security-password", "secret");
+        props.setProperty("security-username", "guest");
+        props.setProperty("security-password", "guest");
         props.setProperty(SECURITY_CLIENT_AUTH_INIT, UserPasswordAuthInit.class.getName());
 
         ClientCache cache = new ClientCacheFactory(props)
@@ -55,21 +51,27 @@ public class WriteValuesClient {
                 .<String, Customer>createClientRegionFactory(ClientRegionShortcut.PROXY)
                 .create("customers");
 
-        Customer customer = new Customer(1L, "Galen", "O'Sullivan", "123-456-0123");
 
-        region.put("galen", customer);
 
-//        CqAttributesFactory cqf = new CqAttributesFactory();
-//        cqf.addCqListener(new SSNContinuousQuery());
-//        CqAttributes cqa = cqf.create();
-//
-//
-//        String cqName = "priceOver999.75";
-//        String queryStr = "SELECT * FROM /regionA e where e > 999.75";
-//
-//        QueryService queryService = region.getRegionService().getQueryService();
-//        CqQuery priceTracker = queryService.newCq(cqName, queryStr, cqa);
-//        priceTracker.execute();
+        CqAttributesFactory cqf = new CqAttributesFactory();
+        cqf.addCqListener(new SSNContinuousQuery());
+        CqAttributes cqa = cqf.create();
 
+
+        String cqName = "ssnCq";
+        String queryStr = "SELECT * FROM /customers";
+
+        QueryService queryService = region.getRegionService().getQueryService();
+        CqQuery priceTracker = queryService.newCq(cqName, queryStr, cqa);
+        priceTracker.execute();
+
+        blockUntilUserPressesEnter();
+
+    }
+
+    private static void blockUntilUserPressesEnter() {
+        System.out.println("Press enter to end the simulation...");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
     }
 }
